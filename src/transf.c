@@ -50,17 +50,18 @@ int main(int argc, char* argv[]) {
     FILE* fastafile=NULL;
     FILE* maskfastafile=NULL;
 
-
     if(argc==1) {
-        fprintf(stderr,"Custom compress/uncompress utility for masked fasta files\n");
-        fprintf(stderr,"Last update by (dp) on Sep 21, 2011\n");
+	fprintf(stderr,"This utility transforms fasta files (usually, genomes) into an indexed 4-bit format, ");
+	fprintf(stderr,"with 2 bits encoding ACGT and the other two encoding Ns and repeat masked state.\n");
+	fprintf(stderr,"Last update by Dmitri Pervouchine (dp@crg.eu) on Sep 21, 2011\n");
+	fprintf(stderr,"Usage: %s -dir <dirname> -maskdir <dirname> -dbx <file> -idx <file> [-remove] [-uncompress] [-quiet]\n", argv[0]);
         fprintf(stderr," -dir name of the directory containing FASTA files\n");
 	fprintf(stderr," -maskdir name of the directory containing masked FASTA files (optional)\n");
 	fprintf(stderr," -maskext masked FASTA file extension\n");
 	fprintf(stderr," -dbx, -idx sequence database names\n");
-        fprintf(stderr," -remove remove source FASTA files [default=NO]\n");
-	fprintf(stderr," -uncompress [default=NO]\n");
-	fprintf(stderr," -quiet suppress verbose output [default=NO]\n");
+        fprintf(stderr," -remove remove source FASTA files [default=%s]\n", (remove_source ? (char*)"YES" : (char*)"NO"));
+	fprintf(stderr," -uncompress [default=%s]\n",(UNCOMPRESS ? (char*)"YES" : (char*)"NO"));
+	fprintf(stderr," -quiet suppress verbose output [default=%s]\n", (!verbose ? (char*)"YES" : (char*)"NO"));
         exit(1);
     }
 

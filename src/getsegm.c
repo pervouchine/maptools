@@ -71,10 +71,11 @@ int main(int argc, char* argv[]) {
     int record_idx[MAXCHR];
 
     if(argc==1) {
-	fprintf(stderr,"This routine get sequence segments from a custom compressed FASTA repository  (see transf)\n");
-        fprintf(stderr,"Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 22, 2013\n");
-        fprintf(stderr," -in <bed_file>\n -dbx <database_file>\n -idx <database_index_file>\n -out <output_file>\n");
-        fprintf(stderr," -quiet suppress verbose output [default=NO]\n -limit <length_limit> [default=%i]\n -margins <margin1> <margin2> [default=(%i %i)]\n", length_limit, margin1, margin2);
+	fprintf(stderr, "This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of intervals\n");
+	fprintf(stderr, "Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 22, 2013\n");
+	fprintf(stderr, "Usage: %s -in <file> -dbx <file> -idx <file> -out <file> [-limit <length>] [-margins <margin1> <margin2>] [-quiet]\n",argv[0]);
+        fprintf(stderr," -in <bed_file>\n -dbx <database_file>\n -idx <database_index_file>\n -out <output_file> \n -limit <length_limit> [default=%i]\n", length_limit);
+        fprintf(stderr," -margins <margin1> <margin2> [default=%i %i]\n -spacer <spacer> [default=%s]\n -quiet suppress verbose output [default=NO]\n", margin1, margin2, spacer);
 	exit(1);
     }
 

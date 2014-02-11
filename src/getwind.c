@@ -66,11 +66,11 @@ int main(int argc, char* argv[]) {
     char format[][64] = {"%*s %*i %*i %s %li %c %*s %s %c", "%s %li %c %*s %s %c"};
 
     if(argc==1) {
-        fprintf(stderr,"This routine get sequence segments from a custom compressed FASTA repository  (see transf)\n");
-        fprintf(stderr,"Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 22, 2013\n");
-        fprintf(stderr," -in <aln_file>\n -dbx <database_file>\n -idx <index_file>\n -out <output_file>\n");
+        fprintf(stderr, "This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of positions and window sizes\n");
+        fprintf(stderr, "Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 22, 2013\n");
+        fprintf(stderr, "Usage: %s -in <file> -dbx <file> -idx <file> -out <file>\n",argv[0]);
         fprintf(stderr," -we exonic window [default=%i] -wi intronic window [default=%i] -cis [use colunms 1-3] [default=%i]\n", exonic_window, intronic_window, cis?(char*)"yes":(char*)"no");
-	fprintf(stderr," -quiet <suppress verbose output> [default=no]\n -all <include all sites>\n -coord <offset for 3'-sites> [default=%i]",coord);
+	fprintf(stderr," -quiet <suppress verbose output> [default=no]\n -all <include all sites>\n -coord <offset for 3'-sites> [default=%i]\n",coord);
 	exit(1);
     }
 
