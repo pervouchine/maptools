@@ -32,8 +32,7 @@ To install, type './configure' to cofigure and 'make all' to compile all the bin
 
 Utilities:
 
-transf
-	This utility transforms fasta files (usually, genomes) into an indexed 4-bit format,
+transf: this utility transforms fasta files (usually, genomes) into an indexed 4-bit format,
 	with 2 bits encoding ACGT and the other two encoding Ns and repeat masked state 
 	
 	./transf -dir <dirname> -maskdir <dirname> -dbx <file> -idx <file> [-remove] [-uncompress] [-quiet]
@@ -51,8 +50,7 @@ transf
 	./transf -dir human_genome/file.fa -dbx hg19.dbx -idx hg19.idx -uncompress
 	Creates human_genome/* from hg19.dbx and hg19.idx
 
-getsegm
-	This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of intervals
+getsegm: this utility does sequence retrieval from the 4-bit repository (see transf) given the input file of intervals
 
 	./getsegm -in <file> -dbx <file> -idx <file> -out <file> [-limit <length>] [-margins <margin1> <margin2>] [-quiet] 
 	-in BED file (NOTE: although the columns are as in BED file, the coordinate system is 1-based!)
@@ -63,8 +61,7 @@ getsegm
 	-spacer [default=.....]
 	-margins <margin1> <margin2> [default=0 0] margins to add on each side of the interval
 
-getwind
-	This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of positions and window sizes
+getwind: this utility does sequence retrieval from the 4-bit repository (see transf) given the input file of positions and window sizes
 
 	./getwind -in <file> -dbx <file> -idx <file> -out <file>
 	-we exonic window [default=0] -wi intronic window [default=150] -cis [use colunms 1-3] [default=4207174]
