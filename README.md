@@ -31,7 +31,7 @@ To install, type './configure' to cofigure and 'make all' to compile all the bin
 ============================================================================
 UTILITIES
 
-1. Sequence compressing/decompressing/retrieval
+. Sequence compressing/decompressing/retrieval
 
 transf: this utility transforms fasta files (usually, genomes) into an indexed 4-bit format,
 	with 2 bits encoding ACGT and the other two encoding Ns and repeat masked state 
@@ -70,7 +70,7 @@ getwind: this utility does sequence retrieval from the 4-bit repository (see tra
 	-all <include all sites>
 	-coord <offset for acceptor sites> [default=0]
 
-2. Lift-over and mapping utilities
+. Lift-over and mapping utilities
 
 map_agnostic: this utility does liftOver of nucleotide coordinates (cps format) by  using chain alignment.
 
