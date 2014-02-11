@@ -32,7 +32,7 @@ To install, type './configure' to cofigure and 'make all' to compile all the bin
 
 Utilities:
 
-1. transf
+transf
 	This utility transforms fasta files (usually, genomes) into an indexed 4-bit format,
 	with 2 bits encoding ACGT and the other two encoding Ns and repeat masked state 
 	
@@ -51,7 +51,7 @@ Utilities:
 	./transf -dir human_genome/file.fa -dbx hg19.dbx -idx hg19.idx -uncompress
 	Creates human_genome/* from hg19.dbx and hg19.idx
 
-2. getsegm
+getsegm
 	This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of intervals
 
 	./getsegm -in <file> -dbx <file> -idx <file> -out <file> [-limit <length>] [-margins <margin1> <margin2>] [-quiet] 
@@ -63,7 +63,7 @@ Utilities:
 	-spacer [default=.....]
 	-margins <margin1> <margin2> [default=0 0] margins to add on each side of the interval
 
-3. getwind
+getwind
 	This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of positions and window sizes
 
 	./getwind -in <file> -dbx <file> -idx <file> -out <file>
