@@ -1,6 +1,6 @@
 Copyright 2012 Dmitri Pervouchine (dp@crg.eu), Lab Roderic Guigo
 Bioinformatics and Genomics Group @ Centre for Genomic Regulation
-Parc de Recerca Biomedica: Dr. Aiguader, 88, 08003 Barcelona
+Parc de Recerca Biomedica: Dr. Aiguader, 88, 08003 Barcelona 
 
 This file is a part of the 'maptools' package.
 'maptools' package is free software: you can redistribute it and/or modify
