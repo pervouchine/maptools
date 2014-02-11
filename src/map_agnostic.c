@@ -58,9 +58,15 @@ int main(int argc, char* argv[]) {
 
     if(argc==1) {
 	fprintf(stderr,"This utility does liftOver of coordinates (cps) by  using chain alignment\n");
+	fprintf(stderr,"Gene information is not taken into account\n");
         fprintf(stderr,"Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 22, 2013\n");
-	fprintf(stderr,"Keys:\n -in <cps_file> (remember to sort by position in ascending order)\n -chain <chain_alignment_file>\n -out <output_file> [default=stdout]\n");
- 	fprintf(stderr," -margin margin length [default=0]\n -quiet suppress verbose output [default=NO]\n");
+	fprintf(stderr,"Usage: %s -in <cps_file> -chain <chain_alignment_file> [-margin <length>] [-quiet]\n",argv[0]);
+	fprintf(stderr," -in cps3, i.e. chr1/position1/strand1 tab-delimited file, strand is +/-\n");
+	fprintf(stderr," -chain UCSC chain alignment file, species1=>2\n");
+	fprintf(stderr," -out <output_file> [default=stdout]\n");
+	fprintf(stderr," -margin margin length [default=0]\n -quiet suppress verbose output [default=NO]\n");
+        fprintf(stderr,"NOTE: Input has to be sorted by position!\n");
+	fprintf(stderr,"Output format: cps3+cps3, i.e. chr1/position1/strand1/chr2/position2/strand2/chainid\n");
 	exit(1);
     }
 

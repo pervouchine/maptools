@@ -64,9 +64,16 @@ int main(int argc, char* argv[]) {
     int s_max, k_max;
 
     if(argc==1) {
-        fprintf(stderr,"This utility does ad-hoc filtering of the projected coordinates (aln) by maximum synteny\n");
+	fprintf(stderr,"This utility takes a non-unique mapping in cps3+cps3 format and does ad-hoc filtering of the projected coordinates by maximum synteny\n");
         fprintf(stderr,"Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 26, 2013\n");
-        fprintf(stderr,"Keys:\n -in <aln_file> (remember to sort by position in ascending order)\n -out <output_file> [default=stdout]\n -maxdepth, -threshold, -lendiff params (see code)\n");
+        fprintf(stderr,"Usage: %s -in <aln_file> -out <output_file> [-maxdepth <int>] [-threshold <double>] [-lendiff <diff>] [-quiet]\n",argv[0]);
+	fprintf(stderr," -in cps3+cps3 file, remember to sort by position in ascending order\n");
+	fprintf(stderr," -out <output_file> [default=stdout]\n");
+	fprintf(stderr," -maxdepth <integer> how many preceding positions can be skipped [default=%i]\n", max_depth);
+	fprintf(stderr," -threshold <double> max change of segment length, in percent [default=%2.2lf]\n", dthreshold);
+	fprintf(stderr," -lendiff <integer>, [default=%i]\n",dlimit);
+	fprintf(stderr," -quiet suppress verbose output [default=NO]\n");
+	fprintf(stderr,"Note: the mapping [x,x+dx] -> [y,y+dy] is OK if |dy-dx|/dx<threshold OR |dy-dx|<dlimit\n");
 	exit(1);
     }
 

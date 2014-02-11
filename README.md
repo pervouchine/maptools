@@ -29,8 +29,9 @@ INSTALLATION
 To install, type './configure' to cofigure and 'make all' to compile all the binaries
 
 ============================================================================
+UTILITIES
 
-Utilities:
+1. Sequence compressing/decompressing/retrieval
 
 transf: this utility transforms fasta files (usually, genomes) into an indexed 4-bit format,
 	with 2 bits encoding ACGT and the other two encoding Ns and repeat masked state 
@@ -69,3 +70,39 @@ getwind: this utility does sequence retrieval from the 4-bit repository (see tra
 	-all <include all sites>
 	-coord <offset for acceptor sites> [default=0]
 
+2. Lift-over and mapping utilities
+
+map_agnostic: this utility does liftOver of nucleotide coordinates (cps format) by  using chain alignment.
+
+	./map_agnostic -in <cps_file> -chain <chain_alignment_file> -out <output_file> [-margin <margin>] [-quiet]
+	-in chromosome/position/strand tab-delimited file (strand is +/-), has to be sorted by position in ascending order
+	-chain chain_alignment_file (see UCSC genome browser)
+	-out <output_file> [default=stdout]
+	-margin margin length [default=0]
+	-quiet suppress verbose output [default=NO]
+
+	Input format: chromosome1/position1/strand1; chain species 1=>2
+	Output format: chromosome1/position1/strand1/chromosome2/position2/strand2/chain_id
+
+map_single: same as map_agnostic, but also takes into account gene information specified in column 4 of cps
+
+	Input format: chromosome1/position1/strand1; chain species 1=>2
+	Output format: chromosome1/position1/strand1/chromosome2/position2/strand2/gene/site/type/score
+
+syntenic_filter: this utility takes a non-unique mapping in cps3+cps3 format and does ad-hoc filtering of the projected 
+	coordinates by maximum synteny genome-wide
+
+	./syntenic_filter -in <aln_file> -out <output_file> [-maxdepth <int>] [-threshold <double>] [-lendiff <diff>] [-quiet]
+	-in cps3+cps3 file, remember to sort by position in ascending order
+	-out <output_file> [default=stdout]
+	-maxdepth <integer> how many preceding positions can be skipped [default=4]
+	-threshold <double> max change of segment length, in percent [default=1.50]
+	-lendiff <integer>, [default=100000]
+	-quiet suppress verbose output [default=NO]
+	Note: the mapping [x,x+dx] -> [y,y+dy] is OK if |dy-dx|/dx<threshold OR |dy-dx|<dlimit
+
+best_match: same as syntenic_filter but takes cps3+cps6 output of map_single and looks for maximum synteny PER GENE
+
+net_filter: currently deprecated but still retained in the package.
+
+================================================================================================
