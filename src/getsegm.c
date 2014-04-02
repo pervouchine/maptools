@@ -20,6 +20,8 @@
 #include <sys/dir.h>
 #include "genutils.h"
 
+#define INPUT_BED 0
+#define INPUT_TSV 1
 
 #define OUTPUT_MAF 0
 #define OUTPUT_TSV 1
@@ -51,7 +53,8 @@ int main(int argc, char* argv[]) {
     char buff[MAXBUFFLENGTH];
     char longbuff[MAXLONGBUFFLENGTH + 100];
 
-    int output_type=OUTPUT_MAF;
+    int out_type = OUTPUT_MAF;
+    int inp_type = INPUT_BED;
 
     int i,j,q,k,n,s;
     char c;
@@ -72,10 +75,11 @@ int main(int argc, char* argv[]) {
 
     if(argc==1) {
 	fprintf(stderr, "This utility does sequence retrieval from the 4-bit repository (see transf) given the input file of intervals\n");
-	fprintf(stderr, "Last update by Dmitri Pervouchine (dp@crg.eu) on Mar 22, 2013\n");
+	fprintf(stderr, "Last update by Dmitri Pervouchine (dp@crg.eu) on Apr 2, 2014\n");
 	fprintf(stderr, "Usage: %s -in <file> -dbx <file> -idx <file> -out <file> [-limit <length>] [-margins <margin1> <margin2>] [-quiet]\n",argv[0]);
         fprintf(stderr," -in <bed_file>\n -dbx <database_file>\n -idx <database_index_file>\n -out <output_file> \n -limit <length_limit> [default=%i]\n", length_limit);
         fprintf(stderr," -margins <margin1> <margin2> [default=%i %i]\n -spacer <spacer> [default=%s]\n -quiet suppress verbose output [default=NO]\n", margin1, margin2, spacer);
+	fprintf(stderr," -inp_type 0=BED, 1=TSV [default=%i]\n -out_type 0=MAF, 1=TSV [default=%i]\n", inp_type, out_type);
 	exit(1);
     }
 
@@ -115,8 +119,12 @@ int main(int argc, char* argv[]) {
 	    sscanf(argv[++i], "%s", &spacer[0]);
 	}
 
-	if(strcmp(argv[i],"-type")==0) {
-	    sscanf(argv[++i], "%i", &output_type);
+        if(strcmp(argv[i],"-inp_type")==0) {
+            sscanf(argv[++i], "%i", &inp_type);
+        }
+
+	if(strcmp(argv[i],"-out_type")==0) {
+	    sscanf(argv[++i], "%i", &out_type);
 	}
 
         if(strcmp(argv[i],"-quiet")==0) {
@@ -191,7 +199,15 @@ int main(int argc, char* argv[]) {
 	sscanf(buff,"%s" , &chr_name[0]);
 	i = get_chr_code(chr_name);
 	j = record_idx[i];
-	sscanf(buff,"%*s %li %li %s %*s %c" ,&beg[i][j], &end[i][j], &name[0], &c);
+	switch(inp_type) {
+	    case INPUT_BED : 
+		sscanf(buff,"%*s %li %li %s %*s %c" ,&beg[i][j], &end[i][j], &name[0], &c);
+		break;
+	    case INPUT_TSV :
+		sscanf(buff,"%*s %li %li %c" ,&beg[i][j], &end[i][j], &c);
+		name[0]='.'; name[1]=0;
+		break;
+	}
 	str[i][j] = strand_c2i(c);
         if(beg[i][j]>end[i][j]) {
             pos=beg[i][j];beg[i][j]=end[i][j];end[i][j]=pos;
@@ -248,7 +264,7 @@ int main(int argc, char* argv[]) {
 		    	    rev1(longbuff);
 			}
 
-			switch(output_type) {
+			switch(out_type) {
 		    	    case OUTPUT_TSV : fprintf(outfile,"%s_%i_%i_%c\t%s\n",chr_name, beg[i][k], end[i][k], strand_i2c(s), longbuff);
 					      break;
 		    	    case OUTPUT_MAF : fprintf(outfile,"%s\t%s\t%li\t%li\t%c\t%li\t%s\n", ids[i][k], chr_name, (s>0 ? beg[i][k] : seqlen - end[i][k]), l, strand_i2c(s), seqlen, longbuff);

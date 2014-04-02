@@ -1,0 +1,2 @@
+v2.0	get_segm now can take two types of inputs, bed and tsv and output also two types, MAF-line and tsv
+	the flag names have changed type=>out_type; inp_type added
