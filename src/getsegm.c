@@ -22,6 +22,7 @@
 
 #define INPUT_BED 0
 #define INPUT_TSV 1
+#define INPUT_USV 2
 
 #define OUTPUT_MAF 0
 #define OUTPUT_TSV 1
@@ -203,6 +204,8 @@ int main(int argc, char* argv[]) {
 	    case INPUT_BED : 
 		sscanf(buff,"%*s %li %li %s %*s %c" ,&beg[i][j], &end[i][j], &name[0], &c);
 		break;
+	    case INPUT_USV :
+		for(k=0;k<strlen(buff);k++) {if(buff[k]=='_') buff[k]=' ';}
 	    case INPUT_TSV :
 		sscanf(buff,"%*s %li %li %c" ,&beg[i][j], &end[i][j], &c);
 		name[0]='.'; name[1]=0;
