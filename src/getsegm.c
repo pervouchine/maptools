@@ -163,6 +163,9 @@ int main(int argc, char* argv[]) {
     if(verbose) fprintf(stderr,"[<%s, pass 1", bed_file_name);
     while(fgets(buff,MAXBUFFLENGTH,bed_file)) {
         if(strlen(buff)<2) break;
+        if(inp_type==INPUT_USV) {
+            for(k=0;k<strlen(buff);k++) {if(buff[k]=='_') buff[k]=' ';}
+        }
       	sscanf(buff,"%s" , &chr_name[0]);
       	n = assign_code(chr_name);
       	record_count[n]++;
@@ -197,6 +200,9 @@ int main(int argc, char* argv[]) {
     if(verbose) fprintf(stderr,"[<%s, pass 2", bed_file_name);
     while(fgets(buff,MAXBUFFLENGTH,bed_file)) {
         if(strlen(buff)<2) break;
+        if(inp_type==INPUT_USV) {
+            for(k=0;k<strlen(buff);k++) {if(buff[k]=='_') buff[k]=' ';}
+        }
 	sscanf(buff,"%s" , &chr_name[0]);
 	i = get_chr_code(chr_name);
 	j = record_idx[i];
@@ -205,7 +211,6 @@ int main(int argc, char* argv[]) {
 		sscanf(buff,"%*s %li %li %s %*s %c" ,&beg[i][j], &end[i][j], &name[0], &c);
 		break;
 	    case INPUT_USV :
-		for(k=0;k<strlen(buff);k++) {if(buff[k]=='_') buff[k]=' ';}
 	    case INPUT_TSV :
 		sscanf(buff,"%*s %li %li %c" ,&beg[i][j], &end[i][j], &c);
 		name[0]='.'; name[1]=0;
