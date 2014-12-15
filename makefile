@@ -1,7 +1,7 @@
 SRC=src/
 BIN=bin/
 
-PROGS=${BIN}map_single ${BIN}map_agnostic ${BIN}best_match ${BIN}net_filter ${BIN}syntenic_filter ${BIN}getwind ${BIN}getsegm ${BIN}transf ${BIN}progressbar.o ${BIN}genutils.o
+PROGS=${BIN}map_single ${BIN}map_agnostic ${BIN}best_match ${BIN}net_filter ${BIN}syntenic_filter ${BIN}getwind ${BIN}getsegm ${BIN}transf ${BIN}progressbar.o ${BIN}genutils.o ${BIN}getsegm2
 
 all :: ${PROGS}
 
@@ -31,6 +31,9 @@ ${BIN}getwind : ${SRC}getwind.c ${BIN}genutils.o ${BIN}progressbar.o
 
 ${BIN}getsegm : ${SRC}getsegm.c ${BIN}genutils.o ${BIN}progressbar.o
 	g++ -o ${BIN}getsegm ${SRC}getsegm.c ${BIN}genutils.o ${BIN}progressbar.o
+
+${BIN}getsegm2 : ${SRC}getsegm2.c ${BIN}genutils.o ${BIN}progressbar.o
+	g++ -o ${BIN}getsegm2 ${SRC}getsegm2.c ${BIN}genutils.o ${BIN}progressbar.o
 
 ${BIN}transf : ${SRC}transf.c ${BIN}genutils.o ${BIN}progressbar.o
 	g++ -o ${BIN}transf ${SRC}transf.c ${BIN}genutils.o ${BIN}progressbar.o
