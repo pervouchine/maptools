@@ -33,6 +33,7 @@ int main(int argc, char* argv[]) {
     char dirname[MAXBUFFLENGTH]="";
     char maskdirname[MAXBUFFLENGTH]="";
     char maskextention[MAXBUFFLENGTH]="";
+    char dirname1[MAXBUFFLENGTH]="";
 
     char idxfilename[MAXBUFFLENGTH]="";
     char dbxfilename[MAXBUFFLENGTH]="";
@@ -100,6 +101,8 @@ int main(int argc, char* argv[]) {
 
     }
 
+    strcpy(dirname1,dirname);
+
     if(maskdirname[0]==0) strcpy(maskdirname, dirname);
 
     if(dbxfilename[0]==0 || idxfilename[0]==0) {
@@ -152,14 +155,10 @@ int main(int argc, char* argv[]) {
     }
     else {
         n=scandir(dirname,&files,0,alphasort);
-	for(m=i=0;i<n;i++) {
-	    ptr = rindex(files[i]->d_name,'.');
+        for(m=i=0;i<n;i++) {
+            ptr = rindex(files[i]->d_name,'.');
             if(ptr != NULL && strcmp(ptr, ".fa")==0) m++;
-	}
-	if(exactdir) {
-	    strcpy(files[0]->d_name, dirname);
-	    n=1; 
-	}
+        }
 
 	if(m==0) {
 	    if(verbose) fprintf(stderr,"The directory doesn't cointain any fasta files, exiting\n");
@@ -177,8 +176,13 @@ int main(int argc, char* argv[]) {
     	for(i=0;i<n;i++) {
             ptr = rindex(files[i]->d_name,'.');
             if(ptr != NULL && strcmp(ptr, ".fa")==0) {
-            	strcpy(fastafilename,dirname);
-            	strcat(fastafilename,files[i]->d_name);
+            	strcpy(fastafilename, dirname1);
+		if(exactdir) {
+		    n=1;
+		}
+		else {
+            	    strcat(fastafilename,files[i]->d_name);
+		}
 	    	fastafile = fopen(fastafilename,"r");
 	    	if(fastafile==NULL) {
 		    if(verbose) fprintf(stderr," can't open, skipping\n");
