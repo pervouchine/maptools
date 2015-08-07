@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
     int remove_source=0;
     struct direct **files;
     int i,n,m;
+    int exactdir=0;
     char *ptr;
 
     FILE* dbxfile=NULL;
@@ -59,6 +60,7 @@ int main(int argc, char* argv[]) {
 	fprintf(stderr," -maskdir name of the directory containing masked FASTA files (optional)\n");
 	fprintf(stderr," -maskext masked FASTA file extension\n");
 	fprintf(stderr," -dbx, -idx sequence database names\n");
+	fprintf(stderr," -exactdir look just for the particular fasta file\n");
         fprintf(stderr," -remove remove source FASTA files [default=%s]\n", (remove_source ? (char*)"YES" : (char*)"NO"));
 	fprintf(stderr," -uncompress [default=%s]\n",(UNCOMPRESS ? (char*)"YES" : (char*)"NO"));
 	fprintf(stderr," -quiet suppress verbose output [default=%s]\n", (!verbose ? (char*)"YES" : (char*)"NO"));
@@ -83,6 +85,9 @@ int main(int argc, char* argv[]) {
         if(strcmp(argv[i],"-quiet")==0) {
             verbose = 0;
         }
+	if(strcmp(argv[i],"-exactdir")==0) {
+	    exactdir = 1;
+	}
 	if(strcmp(argv[i],"-maskdir")==0) {
             sscanf(argv[++i], "%s", &maskdirname[0]);
         }
@@ -151,6 +156,11 @@ int main(int argc, char* argv[]) {
 	    ptr = rindex(files[i]->d_name,'.');
             if(ptr != NULL && strcmp(ptr, ".fa")==0) m++;
 	}
+	if(exactdir) {
+	    strcpy(files[0]->d_name, dirname);
+	    n=1; 
+	}
+
 	if(m==0) {
 	    if(verbose) fprintf(stderr,"The directory doesn't cointain any fasta files, exiting\n");
 	    exit(0);
